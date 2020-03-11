@@ -37,3 +37,4 @@ npm run server
   * tag
 
 ## ERD
+![ERD](https://user-images.githubusercontent.com/33760827/76448294-85dd2000-63a0-11ea-9a0f-cfcb2b89a64a.png)
