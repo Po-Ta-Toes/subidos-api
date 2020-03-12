@@ -18,10 +18,10 @@ const router = express.Router() // mini app that only handles routes
 // GET (index) request on /photos
 router.get('/photos', requireToken, (req, res, next) => {
   Photo.find()
-    .then(photos => { // `photos` is an array of Mongoose documents
-      return photos.map(photo => photo.toObject()) // converts each into a POJO
+    .then(imgFiles => { // `imgFiles` is an array of Mongoose documents
+      return imgFiles.map(imgFile => imgFile.toObject()) // converts each into a POJO
     })
-    .then(photos => res.status(200).json({ photos: photos }))
+    .then(imgFiles => res.status(200).json({ photos: imgFiles }))
     .catch(next) // if error, pass to handler
 })
 
@@ -29,14 +29,13 @@ router.get('/photos', requireToken, (req, res, next) => {
 router.get('/photos/:id', requireToken, (req, res, next) => {
   Photo.findById(req.params.id) // req.params.id set based on `:id` in route
     .then(handle404)
-    .then(photo => res.status(200).json({ photo: photo.toObject() }))
+    .then(imgFile => res.status(200).json({ photo: imgFile.toObject() }))
     .catch(next) // if error, pass to handler
 })
 
 // POST (create) request on /photos
+// single method is from multer, see multer requirement above
 router.post('/photos', photo.single('attachment'), requireToken, (req, res, next) => {
-  console.log('body', req.body)
-  console.log('user', req.user)
   const path = req.file.path
   const mimetype = req.file.mimetype
 
@@ -58,7 +57,7 @@ router.post('/photos', photo.single('attachment'), requireToken, (req, res, next
         owner: owner
       })
     })
-    .then(photo => res.status(201).json({ photo: photo.toObject() }))
+    .then(imgFile => res.status(201).json({ photo: imgFile.toObject() }))
     .catch(next) // if error, pass to handler
 })
 
@@ -67,9 +66,9 @@ router.patch('/photos/:id', removeBlanks, requireToken, (req, res, next) => {
   delete req.body.photo.owner
   Photo.findById(req.params.id)
     .then(handle404)
-    .then(photo => {
-      requireOwnership(req, photo)
-      return photo.updateOne(req.body.photo)
+    .then(imgFile => {
+      requireOwnership(req, imgFile)
+      return imgFile.updateOne(req.body.photo)
     })
     .then(() => res.sendStatus(204)) // on success return 204 and no JSON
     .catch(next) // if error, pass to handler
@@ -79,10 +78,10 @@ router.patch('/photos/:id', removeBlanks, requireToken, (req, res, next) => {
 router.delete('/photos/:id', requireToken, (req, res, next) => {
   Photo.findById(req.params.id)
     .then(handle404)
-    .then(photo => {
-      requireOwnership(req, photo)
+    .then(imgFile => {
+      requireOwnership(req, imgFile)
       // not owner? throw error
-      photo.deleteOne() // delete the photo ONLY IF the above didn't throw
+      imgFile.deleteOne() // delete the imgFile ONLY IF the above didn't throw
     })
     .then(() => res.sendStatus(204)) // on success return 204 and no JSON
     .catch(next) // if error, pass to handler
