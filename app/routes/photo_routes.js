@@ -31,22 +31,30 @@ router.get('/photos/:id', (req, res, next) => {
 })
 
 // POST (create) request on /photos
-router.post('/photos', photo.single('avatar'), (req, res, next) => {
+router.post('/photos', photo.single('attachment'), (req, res, next) => {
   const path = req.file.path
   const mimetype = req.file.mimetype
 
   s3Create(path, mimetype)
     .then(data => {
-      const imageUrl = data.Location
+      console.log('data: ', data)
+      // console.log('body: ', req.body)
+      const url = data.Location
       const name = req.body.name
-      const tags = [...]
+      let tags
+      if (req.body.tags) {
+        tags = req.body.tags
+      } else {
+        tags = []
+      }
+      // const owner =
       return Photo.create({
         name: name,
-        imageUrl: imageUrl,
+        url: url,
         tags: tags
       })
     })
-    .then(photo => res.status(201).json({ photo: photo.toObject() }) )
+    .then(photo => res.status(201).json({ photo: photo.toObject() }))
     .catch(next) // if error, pass to handler
 })
 
@@ -66,7 +74,7 @@ router.delete('/photos/:id', (req, res, next) => {
   Photo.findById(req.params.id)
     .then(handle404)
     .then(photo => {
-      requireOwnership(req, photo) // not owner? throw error
+      // requireOwnership(req, photo) // not owner? throw error
       photo.deleteOne() // delete the photo ONLY IF the above didn't throw
     })
     .then(() => res.sendStatus(204)) // on success return 204 and no JSON
