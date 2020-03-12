@@ -9,6 +9,7 @@ A SPA that serves as a photo application, where users are able to upload images,
 * `npm run server`, start express server
 * `npm install aws-sdk` installs aws-sdk
 * `npm install dotenv` installs dotenv
+* `npm install multer` installs multer
 
 ## Set Up
 ```
