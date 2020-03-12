@@ -1,3 +1,5 @@
+'use strict'
+
 const mongoose = require('mongoose')
 
 const photoSchema = new mongoose.Schema({
@@ -12,12 +14,12 @@ const photoSchema = new mongoose.Schema({
   tags: {
     // array elements should be strings
     type: Array
-  },
-  owner: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
   }
+  // owner: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: 'User',
+  //   required: true
+  // }
 }, {
   timestamps: true
 })
