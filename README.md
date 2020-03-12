@@ -5,7 +5,7 @@ A SPA that serves as a photo application, where users are able to upload images,
 
 ## Dependencies
 * [express-api-template](https://git.generalassemb.ly/ga-wdi-boston/express-api-template)
-* `npm install`, nodemon
+* `npm install`, nodemon, passport
 * `npm run server`, start express server
 * `npm install aws-sdk` installs aws-sdk
 * `npm install dotenv` installs dotenv
