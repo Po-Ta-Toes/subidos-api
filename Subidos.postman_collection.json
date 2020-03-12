@@ -1,0 +1,329 @@
+{
+	"info": {
+		"_postman_id": "a9a38c67-850e-4cec-ab93-9bb27cc6531a",
+		"name": "Subidos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Sign Up",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"credentials\": {\n\t\t\"email\": \"billy@gmail\",\n\t\t\"password\": \"bob\",\n\t\t\"password_confirmation\": \"bob\"\n\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4741/sign-up",
+					"host": [
+						"localhost"
+					],
+					"port": "4741",
+					"path": [
+						"sign-up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sign In",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"credentials\": {\n\t\t\"email\": \"billy@gmail\",\n\t\t\"password\": \"bob\"\n\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4741/sign-in",
+					"host": [
+						"localhost"
+					],
+					"port": "4741",
+					"path": [
+						"sign-in"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Password",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "80fc2f017da367fb7f3dfa7ea4dec15c",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"passwords\" :{\n\t\t\"old\": \"bob\",\n\t\t\"new\": \"bobby\"\n\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4741/change-password",
+					"host": [
+						"localhost"
+					],
+					"port": "4741",
+					"path": [
+						"change-password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sign Out",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "80fc2f017da367fb7f3dfa7ea4dec15c",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4741/sign-out",
+					"host": [
+						"localhost"
+					],
+					"port": "4741",
+					"path": [
+						"sign-out"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Photo",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "attachment",
+							"type": "file",
+							"src": "/Users/samanthasexton/Downloads/rabbit-jpeg.jpeg"
+						},
+						{
+							"key": "name",
+							"value": "rabbit",
+							"type": "text"
+						},
+						{
+							"key": "tags[0]",
+							"value": "animal",
+							"type": "text"
+						},
+						{
+							"key": "tags[1]",
+							"value": "pet",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4741/photos",
+					"host": [
+						"localhost"
+					],
+					"port": "4741",
+					"path": [
+						"photos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Index Photos",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4741/photos",
+					"host": [
+						"localhost"
+					],
+					"port": "4741",
+					"path": [
+						"photos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show Photo",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:4741/photos/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "4741",
+					"path": [
+						"photos",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "5e6a42fea465d452def5d969"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Photo",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"photo\": {\n\t\t\"tags\": [\"floppy\", \"pet\"]\n\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4741/photos/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "4741",
+					"path": [
+						"photos",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "5e6a42fea465d452def5d969"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Photo",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "f375cbd0b2e0d6d21f9bcb156c5b68bc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:4741/photos/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "4741",
+					"path": [
+						"photos",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "5e6a42fea465d452def5d969"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
