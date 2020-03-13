@@ -28,6 +28,7 @@ router.get('/photos', requireToken, (req, res, next) => {
 // GET (show) request on /photos/:id
 router.get('/photos/:id', requireToken, (req, res, next) => {
   Photo.findById(req.params.id) // req.params.id set based on `:id` in route
+    .populate('owner')
     .then(handle404)
     .then(imgFile => res.status(200).json({ photo: imgFile.toObject() }))
     .catch(next) // if error, pass to handler
