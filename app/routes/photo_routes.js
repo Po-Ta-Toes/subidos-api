@@ -65,7 +65,7 @@ router.post('/photos', photo.single('attachment'), requireToken, (req, res, next
 
 // PATCH (update) request on /photos/:id
 router.patch('/photos/:id', removeBlanks, requireToken, (req, res, next) => {
-  delete req.body.photo.owner
+  // delete req.body.photo.owner
   Photo.findById(req.params.id)
     .then(handle404)
     .then(photoData => {
