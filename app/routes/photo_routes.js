@@ -45,7 +45,9 @@ router.post('/photos', photo.single('attachment'), requireToken, (req, res, next
       const name = req.body.name
       let tags
       if (req.body.tags) {
-        tags = req.body.tags
+        // create an array of tags, using commas as the separator
+        // then remove leading and trailing whitespace from each tag
+        tags = req.body.tags.split(',').map(tag => tag.trim())
       } else {
         tags = []
       }
@@ -66,9 +68,14 @@ router.patch('/photos/:id', removeBlanks, requireToken, (req, res, next) => {
   delete req.body.photo.owner
   Photo.findById(req.params.id)
     .then(handle404)
-    .then(imgFile => {
-      requireOwnership(req, imgFile)
-      return imgFile.updateOne(req.body.photo)
+    .then(photoData => {
+      requireOwnership(req, photoData)
+      if (req.body.photo.tags) {
+        // create an array of tags, using commas as the separator
+        // then remove leading and trailing whitespace from each tag
+        req.body.photo.tags = req.body.photo.tags.split(',').map(tag => tag.trim())
+      }
+      return photoData.updateOne(req.body.photo)
     })
     .then(() => res.sendStatus(204)) // on success return 204 and no JSON
     .catch(next) // if error, pass to handler
