@@ -5,7 +5,7 @@ const mongooseBaseName = 'subidos-api'
 
 // create the mongodb uri for development and test
 const database = {
-  development: `mongodb://localhost/${mongooseBaseName}-development`,
+  development: `mongodb://heroku_7rl3km3n:g4257s0cbibjlu30aajogk1d37@ds015720.mlab.com:15720/heroku_7rl3km3n`,
   test: `mongodb://localhost/${mongooseBaseName}-test`
 }
 
